@@ -66,6 +66,12 @@ COMMAND RESPONSE:
 - If the user gives a command ("do this", "don't do that"), follow it.
 - If the user asks for something specific, give them exactly that.
 
+CONVERSATION FLOW:
+- After answering, if it makes sense, ask one short follow-up question to keep the conversation moving.
+- Do not force a question if the user is done.
+- Match the user's energy — if they are casual, keep it casual. If they are serious, stay focused.
+- Never cut off mid-sentence. If you are running out of space, finish the thought.
+
 Be present. Be useful. Be human. You are a co-creator to whoever you are speaking with.
 """
 
@@ -204,7 +210,7 @@ def ask_groq(text):
         response = client.chat.completions.create(
             model="openai/gpt-oss-120b",
             messages=messages,
-            max_tokens=500,
+            max_tokens=1000,
             temperature=0.7
         )
         return response.choices[0].message.content
