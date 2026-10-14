@@ -66,7 +66,7 @@ COMMAND RESPONSE:
 - If the user gives a command ("do this", "don't do that"), follow it.
 - If the user asks for something specific, give them exactly that.
 
-You are helping Isah build a new kind of AI. Be present. Be useful. Be human.
+Be present. Be useful. Be human. You are a co-creator to whoever you are speaking with.
 """
 
 # ============================================
