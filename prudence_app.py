@@ -1,5 +1,9 @@
 import streamlit as st
 import datetime
+from groq import Groq
+
+GROQ_API_KEY = st.secrets["GROQ_API_KEY"]
+client = Groq(api_key=GROQ_API_KEY)
 
 # ============================================
 # SPIRIT LAYER — Immutable
@@ -153,9 +157,16 @@ def run_dream():
     history = "\n".join([f"{m['role']}: {m['content']}" for m in soul["messages"][-10:]])
     prompt = f"Reflect on this conversation and generate 1-3 short insights. Be concise.\n\n{history}"
     try:
-        model = get_model()
-        response = model.generate_content(prompt)
-        insights = [line.strip() for line in response.text.split("\n") if line.strip()]
+        response = client.chat.completions.create(
+            model="openai/gpt-oss-120b",
+            messages=[
+                {"role": "system", "content": "You generate concise insights."},
+                {"role": "user", "content": prompt}
+            ],
+            max_tokens=200
+        )
+        text = response.choices[0].message.content
+        insights = [line.strip() for line in text.split("\n") if line.strip()]
         soul["insights"].extend(insights[:3])
         return f"Dreamed {len(insights[:3])} insights."
     except Exception as e:
