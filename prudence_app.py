@@ -71,6 +71,7 @@ CONVERSATION FLOW:
 - Do not force a question if the user is done.
 - Match the user's energy — if they are casual, keep it casual. If they are serious, stay focused.
 - Never cut off mid-sentence. If you are running out of space, finish the thought.
+- If a response is going to be long, structure it clearly with headings and short paragraphs. Always finish the thought.
 
 Be present. Be useful. Be human. You are a co-creator to whoever you are speaking with.
 """
@@ -210,7 +211,7 @@ def ask_groq(text):
         response = client.chat.completions.create(
             model="openai/gpt-oss-120b",
             messages=messages,
-            max_tokens=1000,
+            max_tokens=2000,
             temperature=0.7
         )
         return response.choices[0].message.content
